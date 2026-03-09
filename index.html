@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>血液淨化 FAQ | 富足診所</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 0.95em;
+        }
+        
+        .chat-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .chat-messages {
+            height: 450px;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .message.bot {
+            align-items: flex-start;
+        }
+        
+        .message.user {
+            align-items: flex-end;
+        }
+        
+        .message-bubble {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+        
+        .message.bot .message-bubble {
+            background: #f0f0f0;
+            color: #333;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .message.user .message-bubble {
+            background: #667eea;
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .message-label {
+            font-size: 0.75em;
+            color: #888;
+            margin-bottom: 4px;
+            padding: 0 8px;
+        }
+        
+        .suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .suggestion-btn {
+            background: #e8e8e8;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .suggestion-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .input-area {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #eee;
+            background: #fafafa;
+        }
+        
+        .input-area input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        
+        .input-area input:focus {
+            border-color: #667eea;
+        }
+        
+        .input-area button {
+            margin-left: 10px;
+            padding: 12px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .input-area button:hover {
+            background: #5a6fd6;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 15px;
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+        
+        .footer a {
+            color: white;
+        }
+        
+        .quick-questions {
+            padding: 15px;
+            border-top: 1px solid #eee;
+            background: #f9f9f9;
+        }
+        
+        .quick-questions-title {
+            font-size: 0.8em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🩸 血液淨化 FAQ</h1>
+            <p>富足診所｜俠醫楊智鈞</p>
+        </div>
+        
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    <span class="message-label">FAQ 助理</span>
+                    <div class="message-bubble">
+                        您好！我是血液淨化 FAQ 助理 👋
+
+有任何關於血液淨化的問題，都可以問我！
+
+例如：
+• 為什麼我的袋子比較小？
+• 泡泡多是好的嗎？
+• 橘紅色正常嗎？
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quick-questions">
+                <div class="quick-questions-title">💡 常見問題：</div>
+                <div class="suggestions">
+                    <button class="suggestion-btn" onclick="askQuestion('為什麼大包小包')">大包 vs 小包</button>
+                    <button class="suggestion-btn" onclick="askQuestion('泡泡多好嗎')">泡泡多好嗎</button>
+                    <button class="suggestion-btn" onclick="askQuestion('橘紅色正常嗎')">橘紅色正常嗎</button>
+                    <button class="suggestion-btn" onclick="askQuestion('用什麼機器')">用什麼機器</button>
+                    <button class="suggestion-btn" onclick="askQuestion('怎麼知道有效')">怎麼知道有效</button>
+                </div>
+            </div>
+            
+            <div class="input-area">
+                <input type="text" id="userInput" placeholder="輸入您的問題..." onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()">發送</button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            📞 04-2437-9900 | 💬 LINE: @273kmdwn<br>
+            <a href="https://good-leg.com" target="_blank">富足診所官網</a>
+        </div>
+    </div>
+
+    <script>
+        let faqData = null;
+        
+        // 載入 FAQ 資料
+        fetch('faq.json')
+            .then(response => response.json())
+            .then(data => {
+                faqData = data;
+                console.log('FAQ 資料載入成功', data);
+            })
+            .catch(error => {
+                console.error('載入 FAQ 失敗:', error);
+            });
+        
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+        
+        function askQuestion(question) {
+            document.getElementById('userInput').value = question;
+            sendMessage();
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const question = input.value.trim();
+            
+            if (!question) return;
+            
+            // 顯示用戶訊息
+            addMessage(question, 'user');
+            input.value = '';
+            
+            // 搜尋答案
+            setTimeout(() => {
+                const answer = findAnswer(question);
+                addMessage(answer, 'bot');
+            }, 500);
+        }
+        
+        function findAnswer(question) {
+            if (!faqData) {
+                return '系統載入中，請稍後再試...';
+            }
+            
+            const q = question.toLowerCase();
+            let bestMatch = null;
+            let bestScore = 0;
+            
+            for (const faq of faqData.faqs) {
+                let score = 0;
+                
+                for (const keyword of faq.keywords) {
+                    if (q.includes(keyword.toLowerCase())) {
+                        score += 1;
+                    }
+                }
+                
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestMatch = faq;
+                }
+            }
+            
+            if (bestMatch && bestScore > 0) {
+                return `📌 ${bestMatch.question}\n\n${bestMatch.answer}`;
+            } else {
+                return faqData.fallback.message;
+            }
+        }
+        
+        function addMessage(text, type) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            
+            const label = type === 'bot' ? 'FAQ 助理' : '您';
+            
+            messageDiv.innerHTML = `
+                <span class="message-label">${label}</span>
+                <div class="message-bubble">${text}</div>
+            `;
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+    </script>
+</body>
+</html>
