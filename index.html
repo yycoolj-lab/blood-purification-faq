@@ -275,22 +275,19 @@
             color: #a8e6cf;
         }
         
-        .doctor-avatar {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 80px;
-            height: auto;
-            z-index: 100;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        .doctor-section {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: -60px;
+            margin-right: 10px;
+            position: relative;
+            z-index: 10;
         }
         
-        @media (max-width: 600px) {
-            .doctor-avatar {
-                width: 60px;
-                bottom: 10px;
-                right: 10px;
-            }
+        .doctor-avatar {
+            width: 100px;
+            height: auto;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
         }
     </style>
 </head>
@@ -367,8 +364,10 @@
             <a href="https://good-leg.com" target="_blank">🌐 富足診所官網</a>
         </div>
     </div>
-    
-    <img src="doctor.png" alt="俠醫楊智鈞" class="doctor-avatar">
+        
+        <div class="doctor-section">
+            <img src="doctor.png" alt="俠醫楊智鈞" class="doctor-avatar">
+        </div>
 
     <script>
         let faqData = null;
