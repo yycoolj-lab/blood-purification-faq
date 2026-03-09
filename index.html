@@ -275,19 +275,17 @@
             color: #a8e6cf;
         }
         
-        .doctor-section {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: -60px;
-            margin-right: 10px;
+        .clinic-info {
             position: relative;
-            z-index: 10;
         }
         
         .doctor-avatar {
-            width: 100px;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 80px;
             height: auto;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }
     </style>
 </head>
@@ -356,6 +354,7 @@
                 <li>專業醫師評估，個人化療程</li>
                 <li>封閉式循環，安全無感染風險</li>
             </ul>
+            <img src="doctor.png" alt="俠醫楊智鈞" class="doctor-avatar">
         </div>
         
         <div class="footer">
@@ -364,10 +363,6 @@
             <a href="https://good-leg.com" target="_blank">🌐 富足診所官網</a>
         </div>
     </div>
-        
-        <div class="doctor-section">
-            <img src="doctor.png" alt="俠醫楊智鈞" class="doctor-avatar">
-        </div>
 
     <script>
         let faqData = null;
